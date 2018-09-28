@@ -13,12 +13,9 @@ module.exports = function (moduleOptions) {
         ...moduleOptions
     };
 
-    app.use((req, res, next) => {
-        console.log('reg session')
-        next();
-    })
+    // 
     app.use(session(options));
 
-    // Add server middleware to beginning:
+    // Add server middleware to the beginning, so that is accessible in every middleware handler:
     this.options.serverMiddleware.unshift(app);
 };
