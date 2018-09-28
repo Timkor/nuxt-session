@@ -1,4 +1,4 @@
-# nuxt-session (WIP)
+# nuxt-session
 Add session support in Nuxt.js, accessible in server middleware using [express](https://github.com/expressjs/express) and [express-session](https://github.com/expressjs/session)
 
 
@@ -14,9 +14,7 @@ npm install nuxt-session
     
 ```javascript
 {    
-    modules: [
-        'nuxt-session', 
-    ],
+    modules: ['nuxt-session'],
 }
 ```
 
@@ -41,8 +39,34 @@ module.exports = (req, res, next) => {
 ```
 	
 ### Usage in nuxt-api module:
+The `session` object will automatically be injected into the context of `nuxt-api`.  
 
-TODO
+`/server/api/cart/add.js`
+```javascript
+export default {
+
+    method: 'POST',
+
+    params: {
+        productId: {
+            type: String,
+            required: true
+        }
+    },
+
+    call({productId}, {session}) {
+
+        if (!session.cart) {
+            session.cart = [];
+        }
+
+        session.cart.push(productId);
+
+        return session.cart;
+    }
+};
+```
+
 
 ## Configure
 
