@@ -41,7 +41,7 @@ module.exports = (req, res, next) => {
 ### Usage in nuxt-api module:
 The `session` object will automatically be injected into the context of `nuxt-api`.  
 
-`/server/api/cart/add.js`
+File `/server/api/cart/add.js`:
 ```javascript
 export default {
 
@@ -63,6 +63,25 @@ export default {
         session.cart.push(productId);
 
         return session.cart;
+    }
+};
+```
+
+### Usage in nuxtServerInit
+
+File `/store/index.js`:
+```javascript
+export const actions = {
+    
+    async nuxtServerInit({dispatch, commit}, {req}) {
+
+        // Get session ID:
+        const sessionId = req.session.id;
+
+        // Or set initial cart state:
+        if (session && session.cart) {
+            dispatch('cart/setProducts', session.cart);
+        }
     }
 };
 ```
