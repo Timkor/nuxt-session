@@ -5,6 +5,10 @@ const defaultOptions = require('./constants/options');
 
 module.exports = function (moduleOptions) {
 
+    if (typeof moduleOptions == 'function') {
+        moduleOptions = moduleOptions(session);
+    }
+
     const app = express();
 
     const options = {
