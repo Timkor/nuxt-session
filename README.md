@@ -105,3 +105,35 @@ Pass the [express-session](https://github.com/expressjs/session) options directl
     ],
 }
 ```
+
+### Configuring using a function:
+For some session stores you will need the express session object. You can get it by passing the options as as function:
+```javascript
+{    
+    modules: [
+        [
+            'nuxt-session', 
+            (session) => {
+                
+                // Use the session object:
+                var RedisStore = require('connect-redis')(session);
+
+                return {
+
+                    name: 'sessionId',
+                    store: new RedisStore({
+                        host: 'localhost',
+                        port: '1234'
+                    }),
+                    secret: 'some secret key',
+                    
+                    cookie: { 
+                        maxAge: 1000 * 60 * 60 * 24 * 7 * 52 * 2 // 2 years
+                    },
+                    saveUninitialized: true,
+                    resave: false
+                };
+        ],
+    ],
+}
+```
