@@ -18,6 +18,11 @@ npm install nuxt-session
 }
 ```
 
+Note that if you do **not** use `express` and `express-session` already:
+```
+npm install express express-session
+```
+
 ## Usage
 
 ### Usage in Nuxt.js serverMiddleware:
